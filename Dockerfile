@@ -6,7 +6,7 @@ FROM openresty/openresty:alpine-fat
 # This is an alpine-based build that keeps some build-related
 # packages, has perl installed for opm, and includes luarocks.
 
-FROM alpine:3.6
+FROM alpine:3.9
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
@@ -185,7 +185,7 @@ RUN openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \
     && chown nginx:nginx /etc/ssl/resty-auto-ssl-fallback*
 
 # create a new dhparam.pem file each time the image is created - this does take a while...
-RUN openssl dhparam 2048 -out /usr/local/openresty/nginx/conf/dhparam.pem \
+RUN openssl dhparam 2048 -out > /usr/local/openresty/nginx/conf/dhparam.pem \
     && chown nginx:nginx /usr/local/openresty/nginx/conf/dhparam.pem
 
 # copy in our configuration
